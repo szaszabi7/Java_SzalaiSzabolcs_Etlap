@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="525.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.etlap.MainController">
+   <children>
+      <HBox prefHeight="55.0" prefWidth="525.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onClickFelvesz" text="Új étel felvétele">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onClickTorol" text="Törlés" />
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </HBox>
+      <TitledPane animated="false" maxWidth="475.0" prefWidth="475.0" text="Áremelés">
+        <content>
+          <AnchorPane maxWidth="475.0" minHeight="0.0" minWidth="0.0" prefHeight="130.0" prefWidth="473.0">
+               <children>
+                  <Spinner fx:id="spinnerSzazalek" layoutX="14.0" layoutY="14.0">
+                      <valueFactory>
+                          <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.1" initialValue="1" max="100" min="0.1" />
+                      </valueFactory>
+                  </Spinner>
+                  <Spinner fx:id="spinnerForint" layoutX="14.0" layoutY="48.0">
+                      <valueFactory>
+                          <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="10" initialValue="100" max="10000" min="1" />
+                      </valueFactory>
+                  </Spinner>
+                  <Label layoutX="171.0" layoutY="18.0" text="\%" />
+                  <Label layoutX="171.0" layoutY="52.0" text="Ft" />
+                  <Button layoutX="191.0" layoutY="14.0" mnemonicParsing="false" onAction="#onClickSzatalekEmel" text="Emelés" />
+                  <Button layoutX="191.0" layoutY="48.0" mnemonicParsing="false" onAction="#onClickFtEmel" text="Emelés" />
+               </children>
+            </AnchorPane>
+        </content>
+         <VBox.margin>
+            <Insets bottom="20.0" left="20.0" />
+         </VBox.margin>
+      </TitledPane>
+      <TableView fx:id="tableViewEtlap" maxWidth="475.0" prefHeight="200.0" prefWidth="475.0">
+        <columns>
+          <TableColumn fx:id="colNev" prefWidth="150.0" text="Név" />
+          <TableColumn fx:id="colKategoria" prefWidth="150.0" text="Kategória" />
+            <TableColumn fx:id="colAr" prefWidth="150.0" text="Ár (Ft)" />
+        </columns>
+         <VBox.margin>
+            <Insets bottom="20.0" left="20.0" />
+         </VBox.margin>
+      </TableView>
+   </children>
+</VBox>
