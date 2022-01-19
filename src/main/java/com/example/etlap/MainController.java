@@ -1,10 +1,12 @@
 package com.example.etlap;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.SQLException;
@@ -25,6 +27,8 @@ public class MainController {
     @FXML
     private Spinner<Integer> spinnerForint;
     private EtelDB db;
+    @FXML
+    private TextArea textAreaLeiras;
 
     public void initialize() {
         colNev.setCellValueFactory(new PropertyValueFactory<>("nev"));
@@ -66,5 +70,11 @@ public class MainController {
 
     @FXML
     public void onClickFtEmel(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void onClickLeiras(Event event) {
+        Etel etel = tableViewEtlap.getSelectionModel().getSelectedItem();
+        textAreaLeiras.setText(etel.toString());
     }
 }
