@@ -75,6 +75,6 @@ public class MainController {
     @FXML
     public void onClickLeiras(Event event) {
         Etel etel = tableViewEtlap.getSelectionModel().getSelectedItem();
-        textAreaLeiras.setText(etel.toString());
+        textAreaLeiras.setText(etel.getLeiras());
     }
 }
