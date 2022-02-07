@@ -101,11 +101,64 @@ public class MainController extends Controller {
 
     @FXML
     public void onClickSzazalekEmel(ActionEvent actionEvent) {
-
+        int selectedIndex = tableViewEtlap.getSelectionModel().getSelectedIndex();
+        if (selectedIndex == -1) {
+            int emeles = spinnerSzazalek.getValue();
+            try {
+                if (db.etelArSzazalek(emeles)) {
+                    alert("Sikeres módosítás");
+                    etelListaFeltolt();
+                } else {
+                    alert("Sikertelen módosítás");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Etel modositandoEtel = tableViewEtlap.getSelectionModel().getSelectedItem();
+            int emeles = spinnerSzazalek.getValue();
+            try {
+                if (db.etelArSzazalek(emeles, modositandoEtel.getId())) {
+                    alert("Sikeres módosítás");
+                    etelListaFeltolt();
+                } else {
+                    alert("Sikertelen módosítás");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
     public void onClickFtEmel(ActionEvent actionEvent) {
+        int selectedIndex = tableViewEtlap.getSelectionModel().getSelectedIndex();
+        if (selectedIndex == -1) {
+            int emeles = spinnerForint.getValue();
+            try {
+                if (db.etelArForint(emeles)) {
+                    alert("Sikeres módosítás");
+                    etelListaFeltolt();
+                } else {
+                    alert("Sikertelen módosítás");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Etel modositandoEtel = tableViewEtlap.getSelectionModel().getSelectedItem();
+            int emeles = spinnerForint.getValue();
+            try {
+                if (db.etelArForint(emeles, modositandoEtel.getId())) {
+                    alert("Sikeres módosítás");
+                    etelListaFeltolt();
+                } else {
+                    alert("Sikertelen módosítás");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
