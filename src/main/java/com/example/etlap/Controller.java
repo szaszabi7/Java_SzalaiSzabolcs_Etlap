@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -28,5 +29,13 @@ public abstract class Controller {
                 Platform.runLater(() -> alert.show());
             }
         }, 500);
+    }
+
+    protected boolean confirm(String uzenet){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Biztos?");
+        alert.setHeaderText(uzenet);
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.get() == ButtonType.OK;
     }
 }

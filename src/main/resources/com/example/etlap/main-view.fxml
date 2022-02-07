@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="525.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.etlap.controllers.MainController">
    <children>
       <HBox prefHeight="55.0" prefWidth="525.0">
@@ -25,17 +26,17 @@
                <children>
                   <Spinner fx:id="spinnerSzazalek" layoutX="14.0" layoutY="14.0">
                       <valueFactory>
-                          <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.1" initialValue="1" max="100" min="0.1" />
+                          <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="5" initialValue="5" max="50" min="5" />
                       </valueFactory>
                   </Spinner>
                   <Spinner fx:id="spinnerForint" layoutX="14.0" layoutY="48.0">
                       <valueFactory>
-                          <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="10" initialValue="100" max="10000" min="1" />
+                          <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="50" initialValue="50" max="3000" min="50" />
                       </valueFactory>
                   </Spinner>
                   <Label layoutX="171.0" layoutY="18.0" text="\%" />
                   <Label layoutX="171.0" layoutY="52.0" text="Ft" />
-                  <Button layoutX="191.0" layoutY="14.0" mnemonicParsing="false" onAction="#onClickSzatalekEmel" text="Emelés" />
+                  <Button layoutX="191.0" layoutY="14.0" mnemonicParsing="false" onAction="#onClickSzazalekEmel" text="Emelés" />
                   <Button layoutX="191.0" layoutY="48.0" mnemonicParsing="false" onAction="#onClickFtEmel" text="Emelés" />
                </children>
             </AnchorPane>

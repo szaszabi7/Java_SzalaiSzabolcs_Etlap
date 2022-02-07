@@ -1,5 +1,6 @@
 package com.example.etlap.controllers;
 
+import com.example.etlap.Controller;
 import com.example.etlap.Etel;
 import com.example.etlap.EtelDB;
 import com.example.etlap.EtlApp;
@@ -19,7 +20,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class MainController {
+public class MainController extends Controller {
 
     @FXML
     private TableView<Etel> tableViewEtlap;
@@ -30,12 +31,13 @@ public class MainController {
     @FXML
     private TableColumn<Etel, String> colKategoria;
     @FXML
-    private Spinner<Double> spinnerSzazalek;
+    private Spinner<Integer> spinnerSzazalek;
     @FXML
     private Spinner<Integer> spinnerForint;
     private EtelDB db;
     @FXML
     private TextArea textAreaLeiras;
+    private List<Etel> etelek;
 
     public void initialize() {
         colNev.setCellValueFactory(new PropertyValueFactory<>("nev"));
@@ -51,7 +53,7 @@ public class MainController {
 
     private void etelListaFeltolt() {
         try {
-            List<Etel> etelek = db.getEtelek();
+            etelek = db.getEtelek();
             tableViewEtlap.getItems().clear();
             for (Etel etel : etelek) {
                 tableViewEtlap.getItems().add(etel);
@@ -75,16 +77,31 @@ public class MainController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @FXML
     public void onClickTorol(ActionEvent actionEvent) {
-
+        int selectedIndex = tableViewEtlap.getSelectionModel().getSelectedIndex();
+        if (selectedIndex == -1) {
+            alert("A törléshez előbb válasszon ki egy elemet a táblázatból");
+            return;
+        }
+        Etel torlendoEtel = tableViewEtlap.getSelectionModel().getSelectedItem();
+        if (!confirm("Biztos hogy törölni szeretné az alábbi ételt: " + torlendoEtel.getNev())) {
+            return;
+        }
+        try {
+            db.etelTorlese(torlendoEtel.getId());
+            alert("Sikeres törlés");
+            etelListaFeltolt();
+        } catch (SQLException e) {
+            errorAlert(e);
+        }
     }
 
     @FXML
-    public void onClickSzatalekEmel(ActionEvent actionEvent) {
+    public void onClickSzazalekEmel(ActionEvent actionEvent) {
+
     }
 
     @FXML
