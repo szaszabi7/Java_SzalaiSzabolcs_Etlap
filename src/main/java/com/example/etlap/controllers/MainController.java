@@ -104,6 +104,9 @@ public class MainController extends Controller {
         int selectedIndex = tableViewEtlap.getSelectionModel().getSelectedIndex();
         if (selectedIndex == -1) {
             int emeles = spinnerSzazalek.getValue();
+            if (!confirm("Biztos hogy szeretnéd emelni az árát ennek: Összes étel" )) {
+                return;
+            }
             try {
                 if (db.etelArSzazalek(emeles)) {
                     alert("Sikeres módosítás");
@@ -117,6 +120,9 @@ public class MainController extends Controller {
         } else {
             Etel modositandoEtel = tableViewEtlap.getSelectionModel().getSelectedItem();
             int emeles = spinnerSzazalek.getValue();
+            if (!confirm("Biztos hogy szeretnéd emelni az árát ennek: " + modositandoEtel.getNev())) {
+                return;
+            }
             try {
                 if (db.etelArSzazalek(emeles, modositandoEtel.getId())) {
                     alert("Sikeres módosítás");
@@ -135,12 +141,15 @@ public class MainController extends Controller {
         int selectedIndex = tableViewEtlap.getSelectionModel().getSelectedIndex();
         if (selectedIndex == -1) {
             int emeles = spinnerForint.getValue();
+            if (!confirm("Biztos hogy szeretnéd emelni az árát ennek: Összes étel" )) {
+                return;
+            }
             try {
                 if (db.etelArForint(emeles)) {
-                    alert("Sikeres módosítás");
+                    alert("Sikeres áremelés");
                     etelListaFeltolt();
                 } else {
-                    alert("Sikertelen módosítás");
+                    alert("Sikertelen áremelés");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -148,12 +157,15 @@ public class MainController extends Controller {
         } else {
             Etel modositandoEtel = tableViewEtlap.getSelectionModel().getSelectedItem();
             int emeles = spinnerForint.getValue();
+            if (!confirm("Biztos hogy szeretnéd emelni az árát ennek: " + modositandoEtel.getNev())) {
+                return;
+            }
             try {
                 if (db.etelArForint(emeles, modositandoEtel.getId())) {
-                    alert("Sikeres módosítás");
+                    alert("Sikeres áremelés");
                     etelListaFeltolt();
                 } else {
-                    alert("Sikertelen módosítás");
+                    alert("Sikertelen áremelés");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
