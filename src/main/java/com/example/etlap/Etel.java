@@ -54,10 +54,4 @@ public class Etel {
     public void setAr(int ar) {
         this.ar = ar;
     }
-
-    @Override
-    public String toString() {
-        String s = String.format("Étel neve: %s\nKategória: %s\nÁr: %d", this.nev, this.kategoria, this.ar);
-        return s;
-    }
 }

@@ -1,5 +1,8 @@
-package com.example.etlap;
+package com.example.etlap.controllers;
 
+import com.example.etlap.Etel;
+import com.example.etlap.EtelDB;
+import com.example.etlap.EtlApp;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -61,12 +64,13 @@ public class MainController {
     @FXML
     public void onClickFelvesz(ActionEvent actionEvent) {
         Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hozzaad-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(EtlApp.class.getResource("hozzaad-view.fxml"));
         Scene scene = null;
         try {
             scene = new Scene(fxmlLoader.load());
             stage.setTitle("Étlap");
             stage.setScene(scene);
+            stage.setOnCloseRequest(event -> etelListaFeltolt());
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
