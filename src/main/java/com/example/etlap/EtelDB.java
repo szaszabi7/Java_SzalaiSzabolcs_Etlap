@@ -50,6 +50,13 @@ public class EtelDB {
         return stmt.executeUpdate();
     }
 
+    public int kategoriaHozzaadasa(String nev) throws SQLException {
+        String sql = "INSERT INTO kategoria(nev) VALUES (?)";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, nev);
+        return stmt.executeUpdate();
+    }
+
     public boolean etelTorlese(int id) throws SQLException {
         String sql = "DELETE FROM etlap WHERE id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);

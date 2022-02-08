@@ -1,18 +1,12 @@
 package com.example.etlap.controllers;
 
-import com.example.etlap.Controller;
-import com.example.etlap.Etel;
-import com.example.etlap.EtelDB;
-import com.example.etlap.EtlApp;
+import com.example.etlap.*;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -38,6 +32,9 @@ public class MainController extends Controller {
     @FXML
     private TextArea textAreaLeiras;
     private List<Etel> etelek;
+    private List<Kategoria> kateg;
+    @FXML
+    private ChoiceBox<Kategoria> choiceBoxKateg;
 
     public void initialize() {
         colNev.setCellValueFactory(new PropertyValueFactory<>("nev"));
@@ -46,6 +43,36 @@ public class MainController extends Controller {
         try {
             db = new EtelDB();
             etelListaFeltolt();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        kategFeltolt();
+
+        choiceBoxKateg.setOnAction(actionEvent -> {
+            if (choiceBoxKateg.getItems().size() != 0) {
+                if (choiceBoxKateg.getSelectionModel().getSelectedItem().getId() == -1) {
+                    etelListaFeltolt();
+                } else {
+                    tableViewEtlap.getItems().clear();
+                    for (Etel e : etelek) {
+                        if (e.getKategoria().equals(choiceBoxKateg.getSelectionModel().getSelectedItem().getNev())) {
+                            tableViewEtlap.getItems().add(e);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    public void kategFeltolt() {
+        try {
+            kateg = db.getKategoria();
+            choiceBoxKateg.getItems().clear();
+            choiceBoxKateg.getItems().add(new Kategoria(-1, ""));
+            for (Kategoria kategoria: kateg) {
+                choiceBoxKateg.getItems().add(kategoria);
+            }
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -189,10 +216,15 @@ public class MainController extends Controller {
             scene = new Scene(fxmlLoader.load());
             stage.setTitle("Kategóriák");
             stage.setScene(scene);
-            stage.setOnCloseRequest(event -> etelListaFeltolt());
+            stage.setOnCloseRequest(event -> loadData());
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void loadData() {
+        etelListaFeltolt();
+        kategFeltolt();
     }
 }

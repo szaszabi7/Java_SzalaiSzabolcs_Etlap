@@ -1,12 +1,13 @@
 package com.example.etlap.controllers;
 
-import com.example.etlap.Controller;
-import com.example.etlap.Etel;
-import com.example.etlap.EtelDB;
-import com.example.etlap.Kategoria;
+import com.example.etlap.*;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -26,7 +27,19 @@ public class KategoriakController extends Controller {
     }
 
     @javafx.fxml.FXML
-    public void onClick(ActionEvent actionEvent) {
+    public void onClickKategHozzaadAblak(ActionEvent actionEvent) {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(EtlApp.class.getResource("kateghozzaad-view.fxml"));
+        Scene scene = null;
+        try {
+            scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Kategória hozzáadása");
+            stage.setScene(scene);
+            stage.setOnCloseRequest(event -> kategotiaFeltolt());
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @javafx.fxml.FXML
@@ -37,7 +50,7 @@ public class KategoriakController extends Controller {
             return;
         }
         Kategoria torlendoKategoria = listViewKategoriak.getSelectionModel().getSelectedItem();
-        if (!confirm("Biztos hogy törölni szeretné az alábbi ételt: " + torlendoKategoria.getNev())) {
+        if (!confirm("Az összes étel ilyen kategóriával törlődni fog\nBiztos hogy törölni szeretné az alábbi kategóriát: " + torlendoKategoria.getNev())) {
             return;
         }
         try {

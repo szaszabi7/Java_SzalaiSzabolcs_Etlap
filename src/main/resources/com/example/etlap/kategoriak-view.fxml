@@ -8,7 +8,7 @@
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="600.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onClick" text="Hozzáadás">
+            <Button mnemonicParsing="false" onAction="#onClickKategHozzaadAblak" text="Hozzáadás">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
