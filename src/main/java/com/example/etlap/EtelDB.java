@@ -14,13 +14,13 @@ public class EtelDB {
     public List<Etel> getEtelek() throws SQLException {
         List<Etel> etelek = new ArrayList<>();
         Statement stmt = conn.createStatement();
-        String sql = "SELECT * FROM etlap;";
+        String sql = "SELECT * FROM etlap INNER JOIN kategoria ON etlap.kategoria_id = kategoria.id ORDER BY etlap.id";
         ResultSet result = stmt.executeQuery(sql);
         while (result.next()){
             int id = result.getInt("id");
             String nev = result.getString("nev");
             String leiras = result.getString("leiras");
-            String kategoria = result.getString("kategoria");
+            String kategoria = result.getString("kategoria.nev");
             int ar = result.getInt("ar");
             Etel etel = new Etel(id, nev, leiras, kategoria, ar);
             etelek.add(etel);
@@ -28,13 +28,25 @@ public class EtelDB {
         return etelek;
     }
 
-    public int etelHozzadasa(String nev, String leiras, int ar, String kategoria) throws SQLException {
-        String sql = "INSERT INTO etlap(nev, leiras, ar, kategoria) VALUES (?,?,?,?)";
+    public List<Kategoria> getKategoria() throws SQLException {
+        List<Kategoria> kategoriak = new ArrayList<>();
+        Statement stmt = conn.createStatement();
+        ResultSet result = stmt.executeQuery("SELECT * FROM kategoria");
+        while (result.next()) {
+            int id = result.getInt("id");
+            String nev = result.getString("nev");
+            kategoriak.add(new Kategoria(id, nev));
+        }
+        return kategoriak;
+    }
+
+    public int etelHozzadasa(String nev, String leiras, int ar, int kategoria) throws SQLException {
+        String sql = "INSERT INTO etlap(nev, leiras, ar, kategoria_id) VALUES (?,?,?,?)";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, nev);
         stmt.setString(2, leiras);
         stmt.setInt(3, ar);
-        stmt.setString(4, kategoria);
+        stmt.setInt(4, kategoria);
         return stmt.executeUpdate();
     }
 

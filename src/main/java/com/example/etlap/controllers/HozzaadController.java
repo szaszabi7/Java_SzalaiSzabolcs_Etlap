@@ -3,6 +3,7 @@ package com.example.etlap.controllers;
 import com.example.etlap.Controller;
 import com.example.etlap.Etel;
 import com.example.etlap.EtelDB;
+import com.example.etlap.Kategoria;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
@@ -19,21 +20,16 @@ public class HozzaadController extends Controller {
     @javafx.fxml.FXML
     private TextArea textAreaHozzadLeiras;
     @javafx.fxml.FXML
-    private ComboBox<String> comboBoxHozzaadKategoria;
+    private ComboBox<Kategoria> comboBoxHozzaadKategoria;
     @javafx.fxml.FXML
     private Spinner<Integer> spinnerHozzadAr;
     private EtelDB db;
 
     public void initialize() {
-        List<String> kateg = new ArrayList();
         try {
             db = new EtelDB();
-            List<Etel> etelek = db.getEtelek();
-            comboBoxHozzaadKategoria.getItems().clear();
-            for (Etel etel : etelek) {
-                if (!kateg.contains(etel.getKategoria())) kateg.add(etel.getKategoria());
-            }
-            for (String kategoria: kateg) {
+            List<Kategoria> kateg = db.getKategoria();
+            for (Kategoria kategoria: kateg) {
                 comboBoxHozzaadKategoria.getItems().add(kategoria);
             }
         } catch (SQLException e) {
@@ -61,7 +57,7 @@ public class HozzaadController extends Controller {
             alert("Kategória kiválasztása köztelező");
             return;
         }
-        String kategoria = comboBoxHozzaadKategoria.getSelectionModel().getSelectedItem();
+        int kategoria = comboBoxHozzaadKategoria.getSelectionModel().getSelectedItem().getId();
 
         try {
             db = new EtelDB();
