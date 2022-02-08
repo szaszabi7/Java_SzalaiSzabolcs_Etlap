@@ -70,7 +70,7 @@ public class MainController extends Controller {
         Scene scene = null;
         try {
             scene = new Scene(fxmlLoader.load());
-            stage.setTitle("Étlap");
+            stage.setTitle("Új étel felvétele");
             stage.setScene(scene);
             stage.setOnCloseRequest(event -> etelListaFeltolt());
             stage.show();
@@ -94,6 +94,7 @@ public class MainController extends Controller {
             db.etelTorlese(torlendoEtel.getId());
             alert("Sikeres törlés");
             etelListaFeltolt();
+            textAreaLeiras.setText("");
         } catch (SQLException e) {
             errorAlert(e);
         }
@@ -177,5 +178,21 @@ public class MainController extends Controller {
     public void onClickLeiras(Event event) {
         Etel etel = tableViewEtlap.getSelectionModel().getSelectedItem();
         textAreaLeiras.setText(etel.getLeiras());
+    }
+
+    @FXML
+    public void onClickKategAblak(ActionEvent actionEvent) {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(EtlApp.class.getResource("kategoriak-view.fxml"));
+        Scene scene = null;
+        try {
+            scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Kategóriák");
+            stage.setScene(scene);
+            stage.setOnCloseRequest(event -> etelListaFeltolt());
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

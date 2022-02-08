@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="73.0" prefWidth="190.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.etlap.controllers.KategHozzaadController">
+   <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="210.0">
+         <children>
+            <Label text="Név">
+               <HBox.margin>
+                  <Insets left="5.0" right="10.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="textFieldKateg" />
+         </children>
+      </HBox>
+      <Button mnemonicParsing="false" onAction="#onClickKategHozzaad" prefHeight="25.0" prefWidth="180.0" text="Button" />
+   </children>
+</VBox>

@@ -58,6 +58,14 @@ public class EtelDB {
         return erintettSorok == 1;
     }
 
+    public boolean kategoriaTorlese(int id) throws SQLException {
+        String sql = "DELETE FROM kategoria WHERE id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, id);
+        int erintettSorok = stmt.executeUpdate();
+        return erintettSorok == 1;
+    }
+
     public boolean etelArSzazalek(int emeles, int id) throws SQLException {
         String sql = "UPDATE etlap SET ar = ar * ((100 + ?) / 100) WHERE id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
